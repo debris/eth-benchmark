@@ -4,11 +4,24 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
+
+// setup db
+mongoose.connect('mongodb://localhost/eth-benchmark');
+var db = mongoose.connection;
+
+db.on('open', function () {
+    console.log('mongoose connection opened');
+});
+
+db.on('error', function () {
+    throw new Error('unable to connect to mongoose database');
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
