@@ -1,5 +1,12 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+    h1= title
+    p top #{number} benchmark results
+    each res, index in results
+        div
+            span  
+                b #{index + 1}.&nbsp;
+                | #{res.result}
+                //| #{res.device}
+

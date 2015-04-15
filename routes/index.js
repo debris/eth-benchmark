@@ -4,10 +4,14 @@ var Benchmark = require('../models/benchmark');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  Benchmark.find({}).sort({result: -1}).limit(5).exec(function (err, benchs) {
+    res.render('index', { 
+        title: 'Ethereum',
+        number: 5,
+        results: benchs
+    });
+  });
 });
-
-
 
 router.post('/benchmark', function (req, res, next) {
     console.log(req.body);
